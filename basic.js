@@ -20,7 +20,7 @@ pg.connect(config, function(err, client, done){
 	        if (err) {
 	            console.log(err);
 	        }
-	        // resulSet represents, well, the set of results returned from the DB.
+	        // resultSet represents, well, the set of results returned from the DB.
 	        // It's an array containing rows
         	resultSet.rows.forEach(function(aRow){
           		console.log(aRow);
@@ -38,7 +38,8 @@ pg.connect(config, function(err, client, done){
              console.error("OOOPS!!! SOMETHING WENT WRONG!", err);
         }
         // Client object represents a connection object
-        // Let's retrieve all books
+        // Let's retrieve all books; $1=The Great Gatsby;
+        // $2=Fitzgerald
         client.query("INSERT INTO books (title, author) VALUES ($1, $2)",
 					["The Great Gatsby", "Fitzgerald"], 
 					function(err, resultSet){

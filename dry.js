@@ -25,7 +25,7 @@ db.query = function(statement, params, anotherBuzzer){
   });
 };
 
-db.query("SELECT * FROM books;", function(err, resultSet){
+db.query("SELECT * FROM books;",[], function(err, resultSet){
     if (err) console.log("SELECT FAILED :-(", err);
     console.log(resultSet.rows);
 });
@@ -36,5 +36,16 @@ db.query("INSERT INTO books (title, author) VALUES ($1, $2) RETURNING *",
 });
 
 // Excercise: add UPDATE and DELETE calls
+db.query("DELETE from books WHERE author = $1;",["Fitzgerald"],
+  function(err,resultSet){
+    if (err) console.log ("Deletion failed :-(", err);
+      console.log(resultSet.rows);
+}
+
+db.query("UPDATE books SET author = $1 WHERE title =$2;",["Bart","The Taker"],
+  function(err,resultSet){
+    if (err) console.log ("Update failed :-(", err);
+      console.log(resultSet.rows);
+}
 
 pg.end();
