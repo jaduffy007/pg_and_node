@@ -10,19 +10,20 @@ function DB(database, port, host) {
   };
 }
 
-DB.prototype.connect = function(buzzer){
+DB.prototype.connect = function(callback){
   pg.connect(this.config, function(err, client, done){
       if (err) {
            console.error("OOOPS!!! SOMETHING WENT WRONG!", err);
       }
-      buzzer(client);
+      callback(client);
+      // console.log(client);
       done();
   });
 };
 
-DB.prototype.query = function(statement, params, anotherBuzzer){
+DB.prototype.query = function(statement, params, anotherCallback){
   this.connect(function(client){
-    client.query(statement, params, anotherBuzzer);
+    client.query(statement, params, anotherCallback);
   });
 };
 
